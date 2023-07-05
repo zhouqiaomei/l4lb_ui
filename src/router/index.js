@@ -1,29 +1,68 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import Layout from '@/components/Layout';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "home",
-    component: HomeView,
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: '',
+    component: Layout,
+    redirect: '/index',
+    children: [
+      {
+        path: '/index',
+        component: () => import('@/views/helloWorld'),
+        hidden: true
+      },
+      {
+        path: '/devops/vipCheck',
+        component: () => import('@/views/devops/vipCheck'),
+        hidden: true
+      },
+      {
+        path: '/resource/snlvs',
+        component: () => import('@/views/resource/snlvsResource'),
+        hidden: true
+      },
+      {
+        path: '/resource/idc',
+        component: () => import('@/views/resource/idcResource'),
+        hidden: true
+      },
+      {
+        path: '/resource/all',
+        component: () => import('@/views/resource/allResource'),
+        hidden: true
+      },
+      {
+        path: '/resource/view',
+        component: () => import('@/views/resource/view'),
+        hidden: true
+      },
+      {
+        path: '/yundun/bill',
+        component: () => import('@/views/yundun/bill'),
+        hidden: true
+      },
+      {
+        path: '/yundun/host',
+        component: () => import('@/views/yundun/host'),
+        hidden: true
+      },
+      {
+        path: '/yundun/subuer',
+        component: () => import('@/views/yundun/subuser'),
+        hidden: true
+      }
+    ]
   },
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: "history", // 去掉url中的#
   base: process.env.BASE_URL,
+  scrollBehavior: () => ({ y: 0 }),
   routes,
 });
 
